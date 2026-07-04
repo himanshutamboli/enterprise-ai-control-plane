@@ -22,6 +22,8 @@ class Permission(StrEnum):
     GATEWAY_INVOKE = "gateway:invoke"  # AI Gateway module (M2)
     PROMPT_READ = "prompt:read"  # Prompt Registry module (M3)
     PROMPT_WRITE = "prompt:write"
+    EVAL_RUN = "eval:run"  # Evaluation Engine module (M4)
+    EVAL_READ = "eval:read"
 
 
 ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
@@ -33,14 +35,23 @@ ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
         Permission.GATEWAY_INVOKE,
         Permission.PROMPT_READ,
         Permission.PROMPT_WRITE,
+        Permission.EVAL_RUN,
+        Permission.EVAL_READ,
     },
     Role.MEMBER: {
         Permission.ORG_READ,
         Permission.USER_READ,
         Permission.GATEWAY_INVOKE,
         Permission.PROMPT_READ,
+        Permission.EVAL_RUN,
+        Permission.EVAL_READ,
     },
-    Role.VIEWER: {Permission.ORG_READ, Permission.USER_READ, Permission.PROMPT_READ},
+    Role.VIEWER: {
+        Permission.ORG_READ,
+        Permission.USER_READ,
+        Permission.PROMPT_READ,
+        Permission.EVAL_READ,
+    },
 }
 
 

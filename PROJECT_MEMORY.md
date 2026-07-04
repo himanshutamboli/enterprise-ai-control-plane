@@ -30,9 +30,12 @@ between sessions. Keep it short and current; detail lives in the linked docs.
   `prompt:read`/`prompt:write` perms. Gateway `/v1/complete` accepts `prompt_name`(+version,
   variables), renders the registered prompt, and records `prompt_name`/`prompt_version` on the
   `GatewayCall`. 28 tests, live-smoke verified. ADR-0004.
-- **Next: M4 — Evaluation Engine.** Score gateway outputs — evaluators (protocol + CI-safe defaults
-  like exact/contains/non-empty), run over a dataset, persist scores. Reuse the eval concepts from
-  `llm-observatory`. Then M5 observability.
+- **M4 — Evaluation Engine: done.** `control_plane.evals`: `Evaluator` protocol + defaults
+  (exact_match/contains/non_empty); `EvalRun` + `EvalItemResult` models; `run_eval` runs a dataset
+  through the gateway (metered via `record_call`), scores, persists, aggregates mean-score/pass-rate;
+  run/list/detail routes; `eval:run`/`eval:read` perms. 34 tests. ADR-0005.
+- **Next: M5 — Observability.** Trace gateway (and eval) calls with a `Tracer` matching the
+  `llm-observatory` shape; expose traces per tenant. Then M6 operator dashboard.
 
 ## Key decisions (see docs/adr/)
 

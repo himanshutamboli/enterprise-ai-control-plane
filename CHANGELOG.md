@@ -6,6 +6,11 @@ All notable changes to this project are documented here. Format follows
 ## [Unreleased]
 
 ### Added
+- **M4 — Evaluation Engine.** `Evaluator` protocol with deterministic defaults (exact-match,
+  contains, non-empty); `run_eval` runs a dataset through the gateway, scores each output, and
+  persists an `EvalRun` + per-item `EvalItemResult` with mean-score/pass-rate. Endpoints to run,
+  list, and fetch runs; new `eval:run`/`eval:read` permissions; eval calls metered via the
+  gateway. ADR-0005.
 - **M3 — Prompt Registry.** Versioned, tenant-scoped prompts (immutable auto-incrementing
   versions), variable rendering, and routes to save/list/fetch/render. The gateway's
   `/v1/complete` accepts a `prompt_name` (+ optional `version`, `variables`) and records the

@@ -27,8 +27,10 @@ Each milestone is one focused step: PRD → design → implement → tests → d
 - **M3 — Prompt Registry** ✅ — versioned, tenant-scoped prompts (auto-incrementing immutable
   versions), retrieval by name/version, variable rendering, and a `render` endpoint; the gateway
   can run a registered prompt by reference and records the prompt name/version on each call.
-- **M4 — Evaluation Engine** — score gateway calls (offline datasets + online sampling), reusing
-  the eval concepts from `llm-observatory`.
+- **M4 — Evaluation Engine** ✅ — `Evaluator` protocol + CI-safe defaults (exact-match / contains
+  / non-empty); run a dataset through the gateway, score each output, persist an `EvalRun` +
+  per-item results with mean-score / pass-rate; run/list/detail endpoints. Eval traffic is metered
+  through the gateway.
 - **M5 — Observability** — trace every gateway call (the `llm-observatory` `Tracer` shape).
 - **M6 — Operator Dashboard** — a thin UI over cost/evals/traces.
 - **M7 — Tower integration (optional)** — expose a read API; point the existing Control Tower at

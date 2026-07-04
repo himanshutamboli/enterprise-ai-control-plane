@@ -34,12 +34,14 @@ def create_app(
     app.state.model_router = default_router()
 
     from control_plane.core.routes import router as core_router
+    from control_plane.evals.routes import router as evals_router
     from control_plane.gateway.routes import router as gateway_router
     from control_plane.prompts.routes import router as prompts_router
 
     app.include_router(core_router)
     app.include_router(gateway_router)
     app.include_router(prompts_router)
+    app.include_router(evals_router)
     return app
 
 

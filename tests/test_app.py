@@ -12,7 +12,7 @@ def test_module_registry_is_well_formed():
     assert len(set(keys)) == len(keys)  # unique
     assert all(m.status in {"planned", "building", "available"} for m in MODULES)
     assert all(m.name and m.summary for m in MODULES)
-    # core + gateway + prompts are done; evals is the module in progress
-    for done in ("core", "gateway", "prompts"):
+    # core → evals are done; observability is the module in progress
+    for done in ("core", "gateway", "prompts", "evals"):
         assert next(m for m in MODULES if m.key == done).status == "available"
-    assert next(m for m in MODULES if m.key == "evals").status == "building"
+    assert next(m for m in MODULES if m.key == "observability").status == "building"

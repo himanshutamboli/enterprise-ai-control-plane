@@ -28,8 +28,8 @@ first-class **modules** of the control plane rather than standalone demos.
 | **core** | ✅ available | Organizations, users, RBAC, tenant isolation, config, app factory, health |
 | **gateway** | ✅ available | Provider protocol, model routing, per-call cost metering + usage |
 | **prompts** | ✅ available | Versioned prompt registry; gateway can run a prompt by reference |
-| **evals** | 🟡 building | Offline/online evaluation over gateway calls |
-| **observability** | ⚪ planned | Tracing & metrics (reuses the `llm-observatory` pattern) |
+| **evals** | ✅ available | Score gateway outputs over a dataset (mean-score, pass-rate) |
+| **observability** | 🟡 building | Tracing & metrics (reuses the `llm-observatory` pattern) |
 | **dashboard** | ⚪ planned | Operator view over the modules above |
 
 Run `uv run control-plane` to print the live module map.
@@ -74,6 +74,10 @@ curl -X POST localhost:8000/orgs/<org_id>/prompts -H "X-API-Key: cp_..." -H 'con
   -d '{"name":"summarize","template":"Summarize for a {audience}: {doc}"}'
 curl -X POST localhost:8000/v1/complete -H "X-API-Key: cp_..." -H 'content-type: application/json' \
   -d '{"model":"claude-opus-4-8","prompt_name":"summarize","variables":{"audience":"exec","doc":"..."}}'
+
+# Evaluate a model over a small dataset (mean-score + pass-rate; eval traffic is metered too):
+curl -X POST localhost:8000/orgs/<org_id>/evals/run -H "X-API-Key: cp_..." -H 'content-type: application/json' \
+  -d '{"model":"claude-opus-4-8","evaluator":"contains","items":[{"prompt":"capital of France?","expected":"Paris"}]}'
 ```
 
 ## Project docs (long-term memory)

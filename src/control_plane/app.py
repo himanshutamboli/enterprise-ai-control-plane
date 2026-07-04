@@ -36,11 +36,11 @@ MODULES: list[Module] = [
         "available",
         "Versioned prompts with retrieval by name/version.",
     ),
-    Module("evals", "Evaluation Engine", "building", "Offline/online scoring over gateway calls."),
+    Module("evals", "Evaluation Engine", "available", "Offline/online scoring over gateway calls."),
     Module(
         "observability",
         "Observability",
-        "planned",
+        "building",
         "Tracing/metrics (reuses the llm-observatory pattern).",
     ),
     Module("dashboard", "Dashboard", "planned", "Operator view over the modules above."),
