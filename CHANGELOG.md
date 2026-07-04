@@ -6,6 +6,10 @@ All notable changes to this project are documented here. Format follows
 ## [Unreleased]
 
 ### Added
+- **AI Delivery Manager module.** Projects, work items, and a RAID log (tenant-scoped); a
+  transparent, deterministic **delivery-risk score** (0–100 + RAG level, every point of risk has a
+  stated reason); and an AI status report generated through the gateway (metered + traced as
+  `delivery.status_report`). New `delivery:read`/`delivery:write` permissions. ADR-0009.
 - **Agent Builder module.** Versioned, tenant-scoped agent definitions (model + system prompt +
   allowed tools + `max_steps`); a deterministic tool registry (calculator, word_count, reverse);
   a `SequentialPlanner` + executor loop bounded by the step-budget guardrail; runs go through the

@@ -37,6 +37,7 @@ def create_app(
 
     from control_plane.agents.routes import router as agents_router
     from control_plane.core.routes import router as core_router
+    from control_plane.delivery.routes import router as delivery_router
     from control_plane.evals.routes import router as evals_router
     from control_plane.gateway.routes import router as gateway_router
     from control_plane.observability.routes import router as observability_router
@@ -48,6 +49,7 @@ def create_app(
     app.include_router(evals_router)
     app.include_router(observability_router)
     app.include_router(agents_router)
+    app.include_router(delivery_router)
     return app
 
 

@@ -49,7 +49,10 @@ one multi-tenant, RBAC'd API with an operator dashboard.
   tools + step budget) and run them through a planner/executor loop over a tool registry, bounded
   by a max-steps guardrail; runs go through the gateway (metered) and are traced. Reuses the
   `agentic-workflow` flagship's pattern as a platform module. See ADR-0008.
-- **AI Delivery Manager** — next.
+- **AI Delivery Manager** ✅ — projects + work items + a RAID log; a transparent, deterministic
+  **delivery-risk score** (0–100, RAG level, with a stated reason for every point of risk); and an
+  AI status report generated through the gateway (metered + traced). Reuses the "explainable
+  heuristic + optional LLM" approach from the churn/agent flagships. See ADR-0009.
 
 ## Definition of done (per module)
 

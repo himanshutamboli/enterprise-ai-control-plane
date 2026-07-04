@@ -55,7 +55,15 @@ core → gateway → prompts → evals → observability → dashboard.
   `max_steps`; runs go through the gateway (metered) + traced as `agent.run`; define/list/get/run/
   list-runs endpoints; `agent:read`/`write`/`run` perms. Registered as a 7th module in the registry.
   49 tests, live-verified. ADR-0008. Reuses the `agentic-workflow` pattern as a platform module.
-- **Next: AI Delivery Manager module** (user's plan) — TPM-aligned: sprints/RAID/delivery-risk.
+- **AI Delivery Manager: done.** `control_plane.delivery`: `Project`/`WorkItem`/`RaidItem`;
+  `project_health` + an explainable `delivery_risk` heuristic (0–100 + RAG + per-point reasons);
+  `status_report` via the gateway (metered + traced as `delivery.status_report`); CRUD + health +
+  status-report endpoints; `delivery:read`/`write` perms. 56 tests, live-verified (risk 69/RED
+  with 4 reasons). ADR-0009.
+
+Both requested first-party modules (Agent Builder, AI Delivery Manager) are shipped. **8 modules
+total** in the registry. Next: user's choice (Tower integration M7, another module, or tag v0.2 +
+refresh the portfolio wording). Portfolio repos need cloning from GitHub to edit.
 
 (v0.1 tagged + wired into ai-portfolio Phase-2 section + profile; done earlier.)
 

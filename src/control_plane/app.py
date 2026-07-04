@@ -50,6 +50,12 @@ MODULES: list[Module] = [
         "available",
         "Define + run governed agents (planner/executor + tools).",
     ),
+    Module(
+        "delivery",
+        "AI Delivery Manager",
+        "available",
+        "Projects, RAID, delivery-risk score, AI status reports.",
+    ),
 ]
 
 

@@ -28,6 +28,8 @@ class Permission(StrEnum):
     AGENT_READ = "agent:read"  # Agent Builder module (M8)
     AGENT_WRITE = "agent:write"
     AGENT_RUN = "agent:run"
+    DELIVERY_READ = "delivery:read"  # AI Delivery Manager module (M9)
+    DELIVERY_WRITE = "delivery:write"
 
 
 ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
@@ -45,6 +47,8 @@ ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
         Permission.AGENT_READ,
         Permission.AGENT_WRITE,
         Permission.AGENT_RUN,
+        Permission.DELIVERY_READ,
+        Permission.DELIVERY_WRITE,
     },
     Role.MEMBER: {
         Permission.ORG_READ,
@@ -56,6 +60,8 @@ ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
         Permission.OBS_READ,
         Permission.AGENT_READ,
         Permission.AGENT_RUN,
+        Permission.DELIVERY_READ,
+        Permission.DELIVERY_WRITE,
     },
     Role.VIEWER: {
         Permission.ORG_READ,
@@ -64,6 +70,7 @@ ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
         Permission.EVAL_READ,
         Permission.OBS_READ,
         Permission.AGENT_READ,
+        Permission.DELIVERY_READ,
     },
 }
 
