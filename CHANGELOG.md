@@ -6,6 +6,10 @@ All notable changes to this project are documented here. Format follows
 ## [Unreleased]
 
 ### Added
+- **M2 — AI Gateway.** `Provider` protocol with a deterministic `MockProvider` (CI default) +
+  `AnthropicProvider` drop-in; `ModelRouter`; token→cost pricing; per-call metering persisted as
+  `GatewayCall`; `POST /v1/complete` (gated by `gateway:invoke`) and `GET /orgs/{id}/usage`.
+  Refactored the app into shared dependencies (`core.deps`) + per-module routers. ADR-0003.
 - **M1 — Platform Core.** FastAPI app factory + Pydantic settings; `Organization`/`User`
   (SQLAlchemy 2.0, SQLite default / Postgres via `database_url`); static RBAC (owner/admin/
   member/viewer → permissions); `X-API-Key` auth with open tenant signup (`POST /orgs`);

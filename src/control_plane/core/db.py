@@ -30,6 +30,8 @@ def make_session_factory(engine: Engine) -> sessionmaker[Session]:
 
 
 def init_db(engine: Engine) -> None:
-    from control_plane.core import models  # noqa: F401 — register mappers before create_all
+    # Import every module's models so their mappers register before create_all.
+    from control_plane.core import models  # noqa: F401
+    from control_plane.gateway import models as gateway_models  # noqa: F401
 
     Base.metadata.create_all(engine)

@@ -18,9 +18,14 @@ between sessions. Keep it short and current; detail lives in the linked docs.
   `X-API-Key`; open tenant signup `POST /orgs` (creates org+owner, returns key once); routes for
   org read + user create/list; multi-tenant isolation; `/health`. 14 tests, live-smoke verified.
   ADR-0002. Serve: `uv run uvicorn control_plane.core.api:app`.
-- **Next: M2 — AI Gateway.** `Provider` protocol + `MockProvider` (CI default) + model router +
-  cost metering; `POST /v1/complete` gated by `gateway:invoke`. Anthropic drop-in behind the
-  protocol (`claude-opus-4-8`, lazy import).
+- **M2 — AI Gateway: done.** `control_plane.gateway`: `Provider` protocol + `MockProvider` (CI
+  default) + `AnthropicProvider` drop-in; `ModelRouter` (default routes all models → mock); token
+  price table + `estimate_cost`; `GatewayCall` model; `record_call`/`usage_summary`; `POST
+  /v1/complete` (gated by `gateway:invoke`) + `GET /orgs/{id}/usage`. Refactored to shared
+  `core.deps` + per-module `APIRouter`s composed in `core.api.create_app`; `app.state.model_router`
+  is swappable. 21 tests, live-smoke verified. ADR-0003.
+- **Next: M3 — Prompt Registry.** Versioned prompts (name + version), retrieval, and the gateway
+  optionally rendering a registered prompt. Then M4 evals.
 
 ## Key decisions (see docs/adr/)
 

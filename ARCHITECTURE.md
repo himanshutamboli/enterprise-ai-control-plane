@@ -32,6 +32,14 @@ module owns its domain, exposes a small interface, and is independently testable
 | `observability` | Traces/spans/metrics for every call | `Tracer` (llm-observatory-compatible shape) |
 | `dashboard` | Operator view over the above | (frontend) |
 
+## How modules compose
+
+`core.api.create_app()` sets shared state on `app.state` (DB session factory, settings, model
+router) and includes each module's `APIRouter`. Modules read their dependencies from
+`core.deps` (`get_db`, `get_current_user`, `require`, `ensure_tenant`), which resolve off
+`app.state` — so a module never depends on how the app was built, and **adding a module is just
+"include its router."**
+
 ## Cross-cutting design pattern
 
 Every place an external dependency exists (LLM provider, DB, tracer) uses the same shape:

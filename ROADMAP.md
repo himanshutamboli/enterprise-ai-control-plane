@@ -21,8 +21,9 @@ Each milestone is one focused step: PRD → design → implement → tests → d
 - **M1 — Platform Core** ✅ — FastAPI app factory, Pydantic settings, `Organization`/`User`
   (SQLAlchemy 2.0), RBAC (roles → permissions), multi-tenant isolation, `X-API-Key` auth with
   open tenant signup, and `/health`. Postgres via `database_url`; SQLite by default + in tests.
-- **M2 — AI Gateway** — `Provider` protocol + `MockProvider` (CI default) + a model router;
-  cost metering per call; `/v1/complete`. Anthropic drop-in behind the protocol.
+- **M2 — AI Gateway** ✅ — `Provider` protocol + `MockProvider` (CI default) + `AnthropicProvider`
+  drop-in; `ModelRouter`; per-call cost metering persisted as `GatewayCall`; `POST /v1/complete`
+  (gated by `gateway:invoke`) and `GET /orgs/{id}/usage`.
 - **M3 — Prompt Registry** — versioned prompts, retrieval by name/version, used by the gateway.
 - **M4 — Evaluation Engine** — score gateway calls (offline datasets + online sampling), reusing
   the eval concepts from `llm-observatory`.
