@@ -8,7 +8,9 @@ def test_version_is_set():
 
 def test_module_registry_is_well_formed():
     keys = [m.key for m in module_map()]
-    assert keys == ["core", "gateway", "prompts", "evals", "observability", "dashboard"]
+    # the core vertical slice, plus first-party modules built on top
+    assert keys[:6] == ["core", "gateway", "prompts", "evals", "observability", "dashboard"]
+    assert "agents" in keys
     assert len(set(keys)) == len(keys)  # unique
     assert all(m.status in {"planned", "building", "available"} for m in MODULES)
     assert all(m.name and m.summary for m in MODULES)

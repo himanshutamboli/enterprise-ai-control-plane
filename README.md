@@ -31,8 +31,9 @@ first-class **modules** of the control plane rather than standalone demos.
 | **evals** | ✅ available | Score gateway outputs over a dataset (mean-score, pass-rate) |
 | **observability** | ✅ available | Traces + spans per gateway/eval call (reuses the `llm-observatory` pattern) |
 | **dashboard** | ✅ available | Streamlit operator view (cross-org spend, evals, traces) |
+| **agents** | ✅ available | Agent Builder — define & run governed agents (planner/executor + tools), reusing the `agentic-workflow` pattern |
 
-All six core modules are built. Run `uv run control-plane` to print the live module map, or
+All six core modules are built, plus first-party modules on top (Agent Builder). Run `uv run control-plane` to print the live module map, or
 `uv sync --group dashboard && uv run streamlit run dashboard.py` for the operator dashboard.
 
 ## Engineering approach

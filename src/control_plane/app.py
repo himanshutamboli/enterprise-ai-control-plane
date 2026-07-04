@@ -44,6 +44,12 @@ MODULES: list[Module] = [
         "Tracing/metrics (reuses the llm-observatory pattern).",
     ),
     Module("dashboard", "Dashboard", "available", "Operator view over the modules above."),
+    Module(
+        "agents",
+        "Agent Builder",
+        "available",
+        "Define + run governed agents (planner/executor + tools).",
+    ),
 ]
 
 

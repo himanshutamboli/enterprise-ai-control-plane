@@ -6,6 +6,12 @@ All notable changes to this project are documented here. Format follows
 ## [Unreleased]
 
 ### Added
+- **Agent Builder module.** Versioned, tenant-scoped agent definitions (model + system prompt +
+  allowed tools + `max_steps`); a deterministic tool registry (calculator, word_count, reverse);
+  a `SequentialPlanner` + executor loop bounded by the step-budget guardrail; runs go through the
+  gateway (metered) and are traced as `agent.run`. Define/list/get/run/list-runs endpoints; new
+  `agent:read`/`agent:write`/`agent:run` permissions. Reuses the `agentic-workflow` pattern as a
+  platform module. ADR-0008.
 - **M6 — Operator Dashboard.** A Streamlit platform-admin view (cross-org KPIs, spend by
   model/org, daily-cost trend, recent eval runs + traces) over pure, testable read queries
   (`control_plane.dashboard.data`); a demo seed populates a week of activity. UI dependencies

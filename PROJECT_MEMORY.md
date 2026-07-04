@@ -48,8 +48,16 @@ between sessions. Keep it short and current; detail lives in the linked docs.
 All six modules built, tested (42), and behind one multi-tenant RBAC'd API + operator dashboard:
 core → gateway → prompts → evals → observability → dashboard.
 
-- **Next (optional): M7 — Tower integration**, or polish/ship (tag v0.1, docs pass, wire into
-  ai-portfolio + profile). Decide with the user.
+## First-party modules (on the core)
+
+- **Agent Builder: done.** `control_plane.agents`: versioned `AgentDef` + `AgentRun`; deterministic
+  tool registry (calculator/word_count/reverse); `SequentialPlanner` + executor loop bounded by
+  `max_steps`; runs go through the gateway (metered) + traced as `agent.run`; define/list/get/run/
+  list-runs endpoints; `agent:read`/`write`/`run` perms. Registered as a 7th module in the registry.
+  49 tests, live-verified. ADR-0008. Reuses the `agentic-workflow` pattern as a platform module.
+- **Next: AI Delivery Manager module** (user's plan) — TPM-aligned: sprints/RAID/delivery-risk.
+
+(v0.1 tagged + wired into ai-portfolio Phase-2 section + profile; done earlier.)
 
 ## Key decisions (see docs/adr/)
 

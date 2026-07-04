@@ -43,6 +43,14 @@ Each milestone is one focused step: PRD → design → implement → tests → d
 **The Phase 2 core vertical slice is complete** — all six modules are built, tested, and behind
 one multi-tenant, RBAC'd API with an operator dashboard.
 
+## First-party modules (built on the core)
+
+- **Agent Builder** ✅ — define versioned, tenant-scoped agents (model + system prompt + allowed
+  tools + step budget) and run them through a planner/executor loop over a tool registry, bounded
+  by a max-steps guardrail; runs go through the gateway (metered) and are traced. Reuses the
+  `agentic-workflow` flagship's pattern as a platform module. See ADR-0008.
+- **AI Delivery Manager** — next.
+
 ## Definition of done (per module)
 
 Tests green in CI · lint/format clean · a short section in ARCHITECTURE or its own doc · an ADR

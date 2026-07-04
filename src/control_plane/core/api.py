@@ -35,6 +35,7 @@ def create_app(
     app.state.model_router = default_router()
     app.state.tracer = Tracer(session_factory)
 
+    from control_plane.agents.routes import router as agents_router
     from control_plane.core.routes import router as core_router
     from control_plane.evals.routes import router as evals_router
     from control_plane.gateway.routes import router as gateway_router
@@ -46,6 +47,7 @@ def create_app(
     app.include_router(prompts_router)
     app.include_router(evals_router)
     app.include_router(observability_router)
+    app.include_router(agents_router)
     return app
 
 
