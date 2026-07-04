@@ -12,8 +12,23 @@ from control_plane.gateway import service
 from control_plane.gateway.providers import CompletionRequest
 from control_plane.gateway.router import UnknownModelError
 from control_plane.gateway.schemas import CompleteIn, CompleteOut, UsageOut
+from control_plane.prompts import service as prompt_service
 
 router = APIRouter()
+
+
+def _resolve_prompt(db: Session, org_id: str, body: CompleteIn) -> tuple[str, int | None]:
+    """Return (prompt_text, prompt_version). Renders a registered prompt if referenced."""
+    if body.prompt:
+        return body.prompt, None
+    prompt = prompt_service.get_prompt(db, org_id, body.prompt_name, body.prompt_version)
+    if prompt is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, f"prompt {body.prompt_name!r} not found")
+    try:
+        text = prompt_service.render_template(prompt.template, body.variables)
+    except prompt_service.MissingVariablesError as exc:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(exc)) from None
+    return text, prompt.version
 
 
 @router.post("/v1/complete", response_model=CompleteOut)
@@ -32,12 +47,15 @@ def complete(
             f"unknown model {body.model!r}; available: {model_router.models()}",
         ) from None
 
+    prompt_text, prompt_version = _resolve_prompt(db, user.org_id, body)
     started = perf_counter()
     resp = provider.complete(
-        CompletionRequest(body.model, body.prompt, body.max_tokens, body.system)
+        CompletionRequest(body.model, prompt_text, body.max_tokens, body.system)
     )
     latency_ms = int((perf_counter() - started) * 1000)
-    service.record_call(db, user.org_id, user.id, resp, latency_ms)
+    service.record_call(
+        db, user.org_id, user.id, resp, latency_ms, body.prompt_name, prompt_version
+    )
     return CompleteOut.model_validate(resp, from_attributes=True)
 
 

@@ -32,4 +32,7 @@ class GatewayCall(Base):
     cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
     latency_ms: Mapped[int] = mapped_column(Integer, default=0)
     status: Mapped[str] = mapped_column(String(16), default="ok")
+    # Set when the call ran a registered prompt (ties usage → an exact prompt version).
+    prompt_name: Mapped[str | None] = mapped_column(String(128), index=True)
+    prompt_version: Mapped[int | None] = mapped_column(Integer)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)

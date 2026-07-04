@@ -24,7 +24,9 @@ Each milestone is one focused step: PRD → design → implement → tests → d
 - **M2 — AI Gateway** ✅ — `Provider` protocol + `MockProvider` (CI default) + `AnthropicProvider`
   drop-in; `ModelRouter`; per-call cost metering persisted as `GatewayCall`; `POST /v1/complete`
   (gated by `gateway:invoke`) and `GET /orgs/{id}/usage`.
-- **M3 — Prompt Registry** — versioned prompts, retrieval by name/version, used by the gateway.
+- **M3 — Prompt Registry** ✅ — versioned, tenant-scoped prompts (auto-incrementing immutable
+  versions), retrieval by name/version, variable rendering, and a `render` endpoint; the gateway
+  can run a registered prompt by reference and records the prompt name/version on each call.
 - **M4 — Evaluation Engine** — score gateway calls (offline datasets + online sampling), reusing
   the eval concepts from `llm-observatory`.
 - **M5 — Observability** — trace every gateway call (the `llm-observatory` `Tracer` shape).

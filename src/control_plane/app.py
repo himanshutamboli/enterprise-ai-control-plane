@@ -33,10 +33,10 @@ MODULES: list[Module] = [
     Module(
         "prompts",
         "Prompt Registry",
-        "building",
+        "available",
         "Versioned prompts with retrieval by name/version.",
     ),
-    Module("evals", "Evaluation Engine", "planned", "Offline/online scoring over gateway calls."),
+    Module("evals", "Evaluation Engine", "building", "Offline/online scoring over gateway calls."),
     Module(
         "observability",
         "Observability",

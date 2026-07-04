@@ -6,6 +6,10 @@ All notable changes to this project are documented here. Format follows
 ## [Unreleased]
 
 ### Added
+- **M3 — Prompt Registry.** Versioned, tenant-scoped prompts (immutable auto-incrementing
+  versions), variable rendering, and routes to save/list/fetch/render. The gateway's
+  `/v1/complete` accepts a `prompt_name` (+ optional `version`, `variables`) and records the
+  prompt name/version on the `GatewayCall`. New `prompt:read`/`prompt:write` permissions. ADR-0004.
 - **M2 — AI Gateway.** `Provider` protocol with a deterministic `MockProvider` (CI default) +
   `AnthropicProvider` drop-in; `ModelRouter`; token→cost pricing; per-call metering persisted as
   `GatewayCall`; `POST /v1/complete` (gated by `gateway:invoke`) and `GET /orgs/{id}/usage`.

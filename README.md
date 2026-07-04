@@ -27,8 +27,8 @@ first-class **modules** of the control plane rather than standalone demos.
 |---|---|---|
 | **core** | ✅ available | Organizations, users, RBAC, tenant isolation, config, app factory, health |
 | **gateway** | ✅ available | Provider protocol, model routing, per-call cost metering + usage |
-| **prompts** | 🟡 building | Versioned prompt registry |
-| **evals** | ⚪ planned | Offline/online evaluation over gateway calls |
+| **prompts** | ✅ available | Versioned prompt registry; gateway can run a prompt by reference |
+| **evals** | 🟡 building | Offline/online evaluation over gateway calls |
 | **observability** | ⚪ planned | Tracing & metrics (reuses the `llm-observatory` pattern) |
 | **dashboard** | ⚪ planned | Operator view over the modules above |
 
@@ -67,6 +67,14 @@ curl localhost:8000/orgs/<org_id>/usage -H "X-API-Key: cp_..."
 
 The default gateway routes every model to a deterministic offline mock, so it runs and tests
 with no API keys; register a real `AnthropicProvider` behind the same interface per deployment.
+
+```bash
+# Register a versioned prompt, then run it through the gateway by reference (usage ties to the version):
+curl -X POST localhost:8000/orgs/<org_id>/prompts -H "X-API-Key: cp_..." -H 'content-type: application/json' \
+  -d '{"name":"summarize","template":"Summarize for a {audience}: {doc}"}'
+curl -X POST localhost:8000/v1/complete -H "X-API-Key: cp_..." -H 'content-type: application/json' \
+  -d '{"model":"claude-opus-4-8","prompt_name":"summarize","variables":{"audience":"exec","doc":"..."}}'
+```
 
 ## Project docs (long-term memory)
 

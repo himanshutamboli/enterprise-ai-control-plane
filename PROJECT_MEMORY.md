@@ -24,8 +24,15 @@ between sessions. Keep it short and current; detail lives in the linked docs.
   /v1/complete` (gated by `gateway:invoke`) + `GET /orgs/{id}/usage`. Refactored to shared
   `core.deps` + per-module `APIRouter`s composed in `core.api.create_app`; `app.state.model_router`
   is swappable. 21 tests, live-smoke verified. ADR-0003.
-- **Next: M3 — Prompt Registry.** Versioned prompts (name + version), retrieval, and the gateway
-  optionally rendering a registered prompt. Then M4 evals.
+- **M3 — Prompt Registry: done.** `control_plane.prompts`: `Prompt` model (immutable versions,
+  unique org+name+version); service (`save_prompt` auto-versions, `get_prompt`, `list_prompts`,
+  `render_template` with variable validation); routes to save/list/fetch/render. New
+  `prompt:read`/`prompt:write` perms. Gateway `/v1/complete` accepts `prompt_name`(+version,
+  variables), renders the registered prompt, and records `prompt_name`/`prompt_version` on the
+  `GatewayCall`. 28 tests, live-smoke verified. ADR-0004.
+- **Next: M4 — Evaluation Engine.** Score gateway outputs — evaluators (protocol + CI-safe defaults
+  like exact/contains/non-empty), run over a dataset, persist scores. Reuse the eval concepts from
+  `llm-observatory`. Then M5 observability.
 
 ## Key decisions (see docs/adr/)
 

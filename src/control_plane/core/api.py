@@ -35,9 +35,11 @@ def create_app(
 
     from control_plane.core.routes import router as core_router
     from control_plane.gateway.routes import router as gateway_router
+    from control_plane.prompts.routes import router as prompts_router
 
     app.include_router(core_router)
     app.include_router(gateway_router)
+    app.include_router(prompts_router)
     return app
 
 

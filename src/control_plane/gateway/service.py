@@ -8,7 +8,13 @@ from control_plane.gateway.providers import CompletionResponse
 
 
 def record_call(
-    db: Session, org_id: str, user_id: str, resp: CompletionResponse, latency_ms: int
+    db: Session,
+    org_id: str,
+    user_id: str,
+    resp: CompletionResponse,
+    latency_ms: int,
+    prompt_name: str | None = None,
+    prompt_version: int | None = None,
 ) -> GatewayCall:
     call = GatewayCall(
         org_id=org_id,
@@ -19,6 +25,8 @@ def record_call(
         completion_tokens=resp.completion_tokens,
         cost_usd=resp.cost_usd,
         latency_ms=latency_ms,
+        prompt_name=prompt_name,
+        prompt_version=prompt_version,
     )
     db.add(call)
     db.commit()

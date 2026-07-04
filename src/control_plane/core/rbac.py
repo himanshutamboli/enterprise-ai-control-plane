@@ -19,7 +19,9 @@ class Permission(StrEnum):
     ORG_MANAGE = "org:manage"
     USER_READ = "user:read"
     USER_MANAGE = "user:manage"
-    GATEWAY_INVOKE = "gateway:invoke"  # used by the AI Gateway module (M2)
+    GATEWAY_INVOKE = "gateway:invoke"  # AI Gateway module (M2)
+    PROMPT_READ = "prompt:read"  # Prompt Registry module (M3)
+    PROMPT_WRITE = "prompt:write"
 
 
 ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
@@ -29,9 +31,16 @@ ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
         Permission.USER_READ,
         Permission.USER_MANAGE,
         Permission.GATEWAY_INVOKE,
+        Permission.PROMPT_READ,
+        Permission.PROMPT_WRITE,
     },
-    Role.MEMBER: {Permission.ORG_READ, Permission.USER_READ, Permission.GATEWAY_INVOKE},
-    Role.VIEWER: {Permission.ORG_READ, Permission.USER_READ},
+    Role.MEMBER: {
+        Permission.ORG_READ,
+        Permission.USER_READ,
+        Permission.GATEWAY_INVOKE,
+        Permission.PROMPT_READ,
+    },
+    Role.VIEWER: {Permission.ORG_READ, Permission.USER_READ, Permission.PROMPT_READ},
 }
 
 
