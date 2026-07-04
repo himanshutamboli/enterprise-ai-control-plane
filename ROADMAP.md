@@ -31,7 +31,9 @@ Each milestone is one focused step: PRD → design → implement → tests → d
   / non-empty); run a dataset through the gateway, score each output, persist an `EvalRun` +
   per-item results with mean-score / pass-rate; run/list/detail endpoints. Eval traffic is metered
   through the gateway.
-- **M5 — Observability** — trace every gateway call (the `llm-observatory` `Tracer` shape).
+- **M5 — Observability** ✅ — a `Tracer` (context-manager `trace`/`span`/`set_output`, the
+  `llm-observatory` shape) that persists traces + spans via its own session; the gateway and eval
+  routes are auto-instrumented; tenant-scoped `traces` list + detail endpoints.
 - **M6 — Operator Dashboard** — a thin UI over cost/evals/traces.
 - **M7 — Tower integration (optional)** — expose a read API; point the existing Control Tower at
   live data.

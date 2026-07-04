@@ -28,20 +28,24 @@ def create_app(
     app.state.session_factory = session_factory
     app.state.settings = settings
 
-    # Model router lives in app state so it can be swapped (e.g. real providers) per deployment.
+    # Model router + tracer live in app state so they can be swapped per deployment.
     from control_plane.gateway.router import default_router
+    from control_plane.observability.tracer import Tracer
 
     app.state.model_router = default_router()
+    app.state.tracer = Tracer(session_factory)
 
     from control_plane.core.routes import router as core_router
     from control_plane.evals.routes import router as evals_router
     from control_plane.gateway.routes import router as gateway_router
+    from control_plane.observability.routes import router as observability_router
     from control_plane.prompts.routes import router as prompts_router
 
     app.include_router(core_router)
     app.include_router(gateway_router)
     app.include_router(prompts_router)
     app.include_router(evals_router)
+    app.include_router(observability_router)
     return app
 
 

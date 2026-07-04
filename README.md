@@ -29,8 +29,8 @@ first-class **modules** of the control plane rather than standalone demos.
 | **gateway** | ✅ available | Provider protocol, model routing, per-call cost metering + usage |
 | **prompts** | ✅ available | Versioned prompt registry; gateway can run a prompt by reference |
 | **evals** | ✅ available | Score gateway outputs over a dataset (mean-score, pass-rate) |
-| **observability** | 🟡 building | Tracing & metrics (reuses the `llm-observatory` pattern) |
-| **dashboard** | ⚪ planned | Operator view over the modules above |
+| **observability** | ✅ available | Traces + spans per gateway/eval call (reuses the `llm-observatory` pattern) |
+| **dashboard** | 🟡 building | Operator view over the modules above |
 
 Run `uv run control-plane` to print the live module map.
 

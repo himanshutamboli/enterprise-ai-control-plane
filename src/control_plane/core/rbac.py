@@ -24,6 +24,7 @@ class Permission(StrEnum):
     PROMPT_WRITE = "prompt:write"
     EVAL_RUN = "eval:run"  # Evaluation Engine module (M4)
     EVAL_READ = "eval:read"
+    OBS_READ = "obs:read"  # Observability module (M5)
 
 
 ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
@@ -37,6 +38,7 @@ ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
         Permission.PROMPT_WRITE,
         Permission.EVAL_RUN,
         Permission.EVAL_READ,
+        Permission.OBS_READ,
     },
     Role.MEMBER: {
         Permission.ORG_READ,
@@ -45,12 +47,14 @@ ROLE_PERMISSIONS: dict[Role, set[Permission]] = {
         Permission.PROMPT_READ,
         Permission.EVAL_RUN,
         Permission.EVAL_READ,
+        Permission.OBS_READ,
     },
     Role.VIEWER: {
         Permission.ORG_READ,
         Permission.USER_READ,
         Permission.PROMPT_READ,
         Permission.EVAL_READ,
+        Permission.OBS_READ,
     },
 }
 

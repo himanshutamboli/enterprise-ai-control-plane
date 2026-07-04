@@ -25,16 +25,24 @@ def run_eval(
     db: Session = Depends(get_db),
 ) -> EvalRunDetailOut:
     ensure_tenant(user, org_id)
+    tracer = request.app.state.tracer
     try:
-        run = service.run_eval(
-            db,
-            org_id,
-            user.id,
-            body.model,
-            body.evaluator,
-            body.items,
-            request.app.state.model_router,
-        )
+        with tracer.trace("eval.run", org_id, user.id) as trace:
+            with trace.span(
+                f"eval:{body.evaluator}",
+                kind="eval",
+                input=f"{len(body.items)} item(s) on {body.model}",
+            ) as span:
+                run = service.run_eval(
+                    db,
+                    org_id,
+                    user.id,
+                    body.model,
+                    body.evaluator,
+                    body.items,
+                    request.app.state.model_router,
+                )
+                span.set_output(f"mean_score={run.mean_score} pass_rate={run.pass_rate}")
     except KeyError:
         raise HTTPException(
             status.HTTP_400_BAD_REQUEST, f"unknown evaluator; available: {evaluator_names()}"

@@ -34,6 +34,7 @@ def init_db(engine: Engine) -> None:
     from control_plane.core import models  # noqa: F401
     from control_plane.evals import models as eval_models  # noqa: F401
     from control_plane.gateway import models as gateway_models  # noqa: F401
+    from control_plane.observability import models as observability_models  # noqa: F401
     from control_plane.prompts import models as prompt_models  # noqa: F401
 
     Base.metadata.create_all(engine)

@@ -34,8 +34,13 @@ between sessions. Keep it short and current; detail lives in the linked docs.
   (exact_match/contains/non_empty); `EvalRun` + `EvalItemResult` models; `run_eval` runs a dataset
   through the gateway (metered via `record_call`), scores, persists, aggregates mean-score/pass-rate;
   run/list/detail routes; `eval:run`/`eval:read` perms. 34 tests. ADR-0005.
-- **Next: M5 — Observability.** Trace gateway (and eval) calls with a `Tracer` matching the
-  `llm-observatory` shape; expose traces per tenant. Then M6 operator dashboard.
+- **M5 — Observability: done.** `control_plane.observability`: `Tracer` (llm-observatory-shaped
+  `trace`/`span`/`set_output`, persists `Trace`+`Span` via its own session; records errors);
+  gateway `complete` + eval `run` routes auto-instrumented; tenant-scoped `GET /orgs/{id}/traces`
+  + `/traces/{id}`; `obs:read` perm. 39 tests. ADR-0006.
+- **Next: M6 — Operator Dashboard.** A thin UI (Streamlit, like the other repos) over the
+  platform's read APIs — orgs/usage/evals/traces — so the control plane has an operator view.
+  Then M7 (optional) Tower integration.
 
 ## Key decisions (see docs/adr/)
 

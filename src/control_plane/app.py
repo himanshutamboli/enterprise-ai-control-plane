@@ -40,10 +40,10 @@ MODULES: list[Module] = [
     Module(
         "observability",
         "Observability",
-        "building",
+        "available",
         "Tracing/metrics (reuses the llm-observatory pattern).",
     ),
-    Module("dashboard", "Dashboard", "planned", "Operator view over the modules above."),
+    Module("dashboard", "Dashboard", "building", "Operator view over the modules above."),
 ]
 
 

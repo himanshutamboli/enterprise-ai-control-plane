@@ -48,10 +48,14 @@ def complete(
         ) from None
 
     prompt_text, prompt_version = _resolve_prompt(db, user.org_id, body)
+    tracer = request.app.state.tracer
     started = perf_counter()
-    resp = provider.complete(
-        CompletionRequest(body.model, prompt_text, body.max_tokens, body.system)
-    )
+    with tracer.trace("gateway.complete", user.org_id, user.id) as trace:
+        with trace.span(f"complete:{body.model}", kind="llm", input=prompt_text[:1000]) as span:
+            resp = provider.complete(
+                CompletionRequest(body.model, prompt_text, body.max_tokens, body.system)
+            )
+            span.set_output(resp.text[:1000])
     latency_ms = int((perf_counter() - started) * 1000)
     service.record_call(
         db, user.org_id, user.id, resp, latency_ms, body.prompt_name, prompt_version

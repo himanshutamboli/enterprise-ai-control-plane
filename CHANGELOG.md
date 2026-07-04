@@ -6,6 +6,10 @@ All notable changes to this project are documented here. Format follows
 ## [Unreleased]
 
 ### Added
+- **M5 — Observability.** A `Tracer` with `llm-observatory`-style ergonomics (`trace`/`span`/
+  `set_output`) that persists `Trace` + `Span` via its own session (independent of the business
+  transaction; records errors too). Gateway completions and eval runs are auto-instrumented;
+  tenant-scoped `GET /orgs/{id}/traces` + `/traces/{id}`; new `obs:read` permission. ADR-0006.
 - **M4 — Evaluation Engine.** `Evaluator` protocol with deterministic defaults (exact-match,
   contains, non-empty); `run_eval` runs a dataset through the gateway, scores each output, and
   persists an `EvalRun` + per-item `EvalItemResult` with mean-score/pass-rate. Endpoints to run,
