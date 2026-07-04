@@ -30,9 +30,10 @@ first-class **modules** of the control plane rather than standalone demos.
 | **prompts** | ✅ available | Versioned prompt registry; gateway can run a prompt by reference |
 | **evals** | ✅ available | Score gateway outputs over a dataset (mean-score, pass-rate) |
 | **observability** | ✅ available | Traces + spans per gateway/eval call (reuses the `llm-observatory` pattern) |
-| **dashboard** | 🟡 building | Operator view over the modules above |
+| **dashboard** | ✅ available | Streamlit operator view (cross-org spend, evals, traces) |
 
-Run `uv run control-plane` to print the live module map.
+All six core modules are built. Run `uv run control-plane` to print the live module map, or
+`uv sync --group dashboard && uv run streamlit run dashboard.py` for the operator dashboard.
 
 ## Engineering approach
 

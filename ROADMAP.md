@@ -34,9 +34,14 @@ Each milestone is one focused step: PRD → design → implement → tests → d
 - **M5 — Observability** ✅ — a `Tracer` (context-manager `trace`/`span`/`set_output`, the
   `llm-observatory` shape) that persists traces + spans via its own session; the gateway and eval
   routes are auto-instrumented; tenant-scoped `traces` list + detail endpoints.
-- **M6 — Operator Dashboard** — a thin UI over cost/evals/traces.
+- **M6 — Operator Dashboard** ✅ — a Streamlit platform-admin view (cross-org KPIs, spend by
+  model/org, daily-cost trend, recent eval runs + traces) over pure read queries; a demo seed
+  populates a week of activity on first run. UI deps live in an optional `dashboard` group.
 - **M7 — Tower integration (optional)** — expose a read API; point the existing Control Tower at
   live data.
+
+**The Phase 2 core vertical slice is complete** — all six modules are built, tested, and behind
+one multi-tenant, RBAC'd API with an operator dashboard.
 
 ## Definition of done (per module)
 

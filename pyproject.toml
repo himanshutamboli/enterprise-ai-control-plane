@@ -41,3 +41,8 @@ dev = [
     "ruff>=0.15.20",
     "httpx>=0.28.0",
 ]
+# Operator dashboard UI — not needed to run the API or tests. `uv sync --group dashboard`.
+dashboard = [
+    "streamlit>=1.58.0",
+    "plotly>=6.8.0",
+]

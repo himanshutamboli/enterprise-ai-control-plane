@@ -1,5 +1,7 @@
 """Recording and summarizing gateway usage."""
 
+from datetime import datetime
+
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
@@ -15,6 +17,7 @@ def record_call(
     latency_ms: int,
     prompt_name: str | None = None,
     prompt_version: int | None = None,
+    created_at: datetime | None = None,
 ) -> GatewayCall:
     call = GatewayCall(
         org_id=org_id,
@@ -28,6 +31,8 @@ def record_call(
         prompt_name=prompt_name,
         prompt_version=prompt_version,
     )
+    if created_at is not None:
+        call.created_at = created_at
     db.add(call)
     db.commit()
     return call

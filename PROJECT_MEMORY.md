@@ -38,9 +38,18 @@ between sessions. Keep it short and current; detail lives in the linked docs.
   `trace`/`span`/`set_output`, persists `Trace`+`Span` via its own session; records errors);
   gateway `complete` + eval `run` routes auto-instrumented; tenant-scoped `GET /orgs/{id}/traces`
   + `/traces/{id}`; `obs:read` perm. 39 tests. ADR-0006.
-- **Next: M6 — Operator Dashboard.** A thin UI (Streamlit, like the other repos) over the
-  platform's read APIs — orgs/usage/evals/traces — so the control plane has an operator view.
-  Then M7 (optional) Tower integration.
+- **M6 — Operator Dashboard: done.** `control_plane.dashboard.data` (pure cross-org queries +
+  a self-seeding week-long demo, no UI imports → CI-tested) + repo-root `dashboard.py` (Streamlit;
+  KPIs, spend by model/org, daily-cost trend, recent evals/traces). UI deps in optional `dashboard`
+  group. 42 tests, live-verified. ADR-0007.
+
+## Phase 2 core slice COMPLETE
+
+All six modules built, tested (42), and behind one multi-tenant RBAC'd API + operator dashboard:
+core → gateway → prompts → evals → observability → dashboard.
+
+- **Next (optional): M7 — Tower integration**, or polish/ship (tag v0.1, docs pass, wire into
+  ai-portfolio + profile). Decide with the user.
 
 ## Key decisions (see docs/adr/)
 

@@ -6,6 +6,11 @@ All notable changes to this project are documented here. Format follows
 ## [Unreleased]
 
 ### Added
+- **M6 — Operator Dashboard.** A Streamlit platform-admin view (cross-org KPIs, spend by
+  model/org, daily-cost trend, recent eval runs + traces) over pure, testable read queries
+  (`control_plane.dashboard.data`); a demo seed populates a week of activity. UI dependencies
+  (streamlit, plotly) live in an optional `dashboard` dependency group. ADR-0007. **Completes the
+  Phase 2 core vertical slice — all six modules built.**
 - **M5 — Observability.** A `Tracer` with `llm-observatory`-style ergonomics (`trace`/`span`/
   `set_output`) that persists `Trace` + `Span` via its own session (independent of the business
   transaction; records errors too). Gateway completions and eval runs are auto-instrumented;
