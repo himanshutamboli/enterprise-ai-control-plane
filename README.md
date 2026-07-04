@@ -1,0 +1,61 @@
+# enterprise-ai-control-plane 🛰️
+
+[![CI](https://github.com/himanshutamboli/enterprise-ai-control-plane/actions/workflows/ci.yml/badge.svg)](https://github.com/himanshutamboli/enterprise-ai-control-plane/actions/workflows/ci.yml)
+[![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/)
+[![Ruff](https://img.shields.io/badge/lint-ruff-orange.svg)](https://github.com/astral-sh/ruff)
+[![status](https://img.shields.io/badge/status-building-blue.svg)](ROADMAP.md)
+
+> A modular **control plane for running enterprise AI in production** — organizations & access
+> control, an AI gateway (model routing + cost metering), a prompt registry, an evaluation
+> engine, and observability — built as a **modular monolith** with clean module boundaries.
+
+This is **Phase 2** of a longer arc. Phase 1 shipped a 7-repo
+[AI engineering portfolio](https://github.com/himanshutamboli/ai-portfolio); this repo unifies
+that work into one platform: the observability, agent, and product-analytics repos become
+first-class **modules** of the control plane rather than standalone demos.
+
+## Control Plane vs. Control Tower
+
+- **Control Plane** (this repo) — the *backend platform*: real services, APIs, data.
+- **[Control Tower](https://github.com/himanshutamboli/enterprise-ai-delivery-control-tower)** —
+  the existing *executive UI* (a Next.js single-pane-of-glass). A later milestone points it at
+  this plane's live API so its dashboards run on real data instead of mocks.
+
+## Modules (the vertical slice)
+
+| Module | Status | What it does |
+|---|---|---|
+| **core** | 🟡 building | Organizations, users, RBAC, config, app factory, health |
+| **gateway** | ⚪ planned | Provider protocol, model routing, cost metering |
+| **prompts** | ⚪ planned | Versioned prompt registry |
+| **evals** | ⚪ planned | Offline/online evaluation over gateway calls |
+| **observability** | ⚪ planned | Tracing & metrics (reuses the `llm-observatory` pattern) |
+| **dashboard** | ⚪ planned | Operator view over the modules above |
+
+Run `uv run control-plane` to print the live module map.
+
+## Engineering approach
+
+Every module follows the same bar: a short PRD → architecture sketch → tests → docs/ADR →
+CI-green commit. The pervasive pattern is **pluggable protocol + deterministic CI-safe default +
+optional real/LLM drop-in**, so the whole platform runs and is tested offline (Anthropic model
+`claude-opus-4-8` where an LLM is wired in). Stack: `uv`, `ruff`, `pytest`, `pre-commit`, GitHub
+Actions, Python 3.13, `src/` layout; FastAPI + PostgreSQL + Redis as modules land.
+
+## Quickstart
+
+```bash
+uv sync --dev
+uv run control-plane      # print the module map
+uv run pytest
+```
+
+## Project docs (long-term memory)
+
+- [VISION.md](VISION.md) · [ARCHITECTURE.md](ARCHITECTURE.md) · [ROADMAP.md](ROADMAP.md)
+- [docs/MODULE_CATALOG.md](docs/MODULE_CATALOG.md) — the full catalog of candidate modules, triaged
+- [PROJECT_MEMORY.md](PROJECT_MEMORY.md) · [CHANGELOG.md](CHANGELOG.md) · [docs/adr/](docs/adr/)
+
+## License
+
+MIT
