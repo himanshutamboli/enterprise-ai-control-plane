@@ -18,9 +18,9 @@ soon. The full candidate list lives in [docs/MODULE_CATALOG.md](docs/MODULE_CATA
 Each milestone is one focused step: PRD → design → implement → tests → docs/ADR → CI-green commit.
 
 - **M0 — Foundation** ✅ — repo, tooling, CI, module registry, long-term-memory docs, module catalog.
-- **M1 — Platform Core** 🟡 — FastAPI app factory, config (Pydantic settings), `Organization`/`User`
-  models, RBAC (roles → permissions), `/health`, and API scaffolding. Postgres via SQLAlchemy;
-  SQLite for tests.
+- **M1 — Platform Core** ✅ — FastAPI app factory, Pydantic settings, `Organization`/`User`
+  (SQLAlchemy 2.0), RBAC (roles → permissions), multi-tenant isolation, `X-API-Key` auth with
+  open tenant signup, and `/health`. Postgres via `database_url`; SQLite by default + in tests.
 - **M2 — AI Gateway** — `Provider` protocol + `MockProvider` (CI default) + a model router;
   cost metering per call; `/v1/complete`. Anthropic drop-in behind the protocol.
 - **M3 — Prompt Registry** — versioned prompts, retrieval by name/version, used by the gateway.

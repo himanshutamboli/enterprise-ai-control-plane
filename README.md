@@ -25,8 +25,8 @@ first-class **modules** of the control plane rather than standalone demos.
 
 | Module | Status | What it does |
 |---|---|---|
-| **core** | 🟡 building | Organizations, users, RBAC, config, app factory, health |
-| **gateway** | ⚪ planned | Provider protocol, model routing, cost metering |
+| **core** | ✅ available | Organizations, users, RBAC, tenant isolation, config, app factory, health |
+| **gateway** | 🟡 building | Provider protocol, model routing, cost metering |
 | **prompts** | ⚪ planned | Versioned prompt registry |
 | **evals** | ⚪ planned | Offline/online evaluation over gateway calls |
 | **observability** | ⚪ planned | Tracing & metrics (reuses the `llm-observatory` pattern) |
@@ -46,8 +46,18 @@ Actions, Python 3.13, `src/` layout; FastAPI + PostgreSQL + Redis as modules lan
 
 ```bash
 uv sync --dev
-uv run control-plane      # print the module map
+uv run control-plane                              # print the module map
+uv run uvicorn control_plane.core.api:app         # serve the platform API (http://localhost:8000/docs)
 uv run pytest
+```
+
+Tenant signup returns an owner API key; every other call is gated by that key + RBAC + tenant isolation:
+
+```bash
+curl -X POST localhost:8000/orgs -H 'content-type: application/json' \
+  -d '{"name":"Acme","owner_email":"owner@acme.com","owner_name":"Owner"}'
+# → { "org": {...}, "owner": { ..., "api_key": "cp_..." } }
+curl localhost:8000/orgs/<org_id>/users -H "X-API-Key: cp_..."
 ```
 
 ## Project docs (long-term memory)

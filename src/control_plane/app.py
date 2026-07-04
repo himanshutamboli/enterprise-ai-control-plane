@@ -26,8 +26,8 @@ class Module:
 
 # The vertical slice we build first (core → gateway → prompts → evals → observability → UI).
 MODULES: list[Module] = [
-    Module("core", "Platform Core", "building", "Orgs, users, RBAC, config, app factory, health."),
-    Module("gateway", "AI Gateway", "planned", "Provider protocol, model routing, cost metering."),
+    Module("core", "Platform Core", "available", "Orgs, users, RBAC, config, app factory, health."),
+    Module("gateway", "AI Gateway", "building", "Provider protocol, model routing, cost metering."),
     Module(
         "prompts", "Prompt Registry", "planned", "Versioned prompts with retrieval by name/version."
     ),

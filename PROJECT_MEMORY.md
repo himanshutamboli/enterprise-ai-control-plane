@@ -11,12 +11,16 @@ between sessions. Keep it short and current; detail lives in the linked docs.
 
 ## Current state
 
-- **M0 — Foundation: done.** Repo scaffolded (uv/ruff/pytest/pre-commit/CI, Python 3.13, `src/`
-  layout, MIT). Module registry in `control_plane/app.py` (`uv run control-plane` prints it).
-  Long-term-memory docs written: VISION, ARCHITECTURE, ROADMAP, MODULE_CATALOG, this file,
-  CHANGELOG, ADR-0001. 2 tests, CI green.
-- **Next: M1 — Platform Core.** FastAPI app factory + Pydantic settings + `Organization`/`User`
-  + RBAC + `/health`. SQLAlchemy/Postgres (SQLite in tests).
+- **M0 — Foundation: done.** Scaffold + CI + module registry + long-term-memory docs (ADR-0001).
+- **M1 — Platform Core: done.** `control_plane.core`: config (Pydantic settings), db (SQLAlchemy
+  2.0, sqlite default / Postgres via `database_url`), models (Organization/User), rbac
+  (owner/admin/member/viewer → permissions), schemas, service, and `api.create_app()`. Auth via
+  `X-API-Key`; open tenant signup `POST /orgs` (creates org+owner, returns key once); routes for
+  org read + user create/list; multi-tenant isolation; `/health`. 14 tests, live-smoke verified.
+  ADR-0002. Serve: `uv run uvicorn control_plane.core.api:app`.
+- **Next: M2 — AI Gateway.** `Provider` protocol + `MockProvider` (CI default) + model router +
+  cost metering; `POST /v1/complete` gated by `gateway:invoke`. Anthropic drop-in behind the
+  protocol (`claude-opus-4-8`, lazy import).
 
 ## Key decisions (see docs/adr/)
 

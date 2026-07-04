@@ -12,5 +12,6 @@ def test_module_registry_is_well_formed():
     assert len(set(keys)) == len(keys)  # unique
     assert all(m.status in {"planned", "building", "available"} for m in MODULES)
     assert all(m.name and m.summary for m in MODULES)
-    # the first slice starts at the core
-    assert next(m for m in MODULES if m.key == "core").status == "building"
+    # the core is done; the gateway is the module in progress
+    assert next(m for m in MODULES if m.key == "core").status == "available"
+    assert next(m for m in MODULES if m.key == "gateway").status == "building"
